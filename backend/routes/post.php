@@ -763,20 +763,20 @@ $stmt->bind_param(
 function rateChat() {
     global $conn;
 
-    // Check if the request method is POST
+    // 1️⃣ Only allow POST requests
     if ($_SERVER["REQUEST_METHOD"] !== "POST") {
         echo json_encode(["error" => "Invalid request method"]);
         exit;
     }
 
-    // Get the Authorization header
+    // 2️⃣ Check Authorization header
     $headers = getallheaders();
     if (!isset($headers['Authorization'])) {
         echo json_encode(["error" => "Missing token"]);
         exit;
     }
 
-    // Verify the token
+    // 3️⃣ Verify JWT
     $token = str_replace("Bearer ", "", $headers['Authorization']);
     $secretKey = 'your-secret-key';
     $decodedPayload = verifyJWT($token, $secretKey);
@@ -786,9 +786,8 @@ function rateChat() {
         exit;
     }
 
-    // Get the JSON payload
+    // 4️⃣ Read JSON payload
     $data = json_decode(file_get_contents("php://input"), true);
-
     if (!$data || !isset($data['chat_id']) || !isset($data['rating'])) {
         echo json_encode(["error" => "Invalid input data"]);
         exit;
@@ -798,18 +797,63 @@ function rateChat() {
     $rating = intval($data['rating']);
     $rateNotes = $data['rate_notes'] ?? null;
 
-    // Update the chat with rating and notes
-    $stmt = $conn->prepare("UPDATE chats SET rating = ?, rate_notes = ? WHERE id = ?");
+    // 5️⃣ Get errand_id, runner_id, and user (client) from errands via chat
+    $stmt = $conn->prepare(
+        "SELECT e.errand_id, e.runner_id, e.userid
+         FROM chats c
+         JOIN errands e ON c.errand_id = e.errand_id
+         WHERE c.id = ?"
+    );
+    $stmt->bind_param("i", $chatId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 0) {
+        echo json_encode(["error" => "Chat or errand not found"]);
+        exit;
+    }
+
+    $row = $result->fetch_assoc();
+    $errandId = $row['errand_id'];
+    $runnerId = $row['runner_id'];
+    $userId = $row['userid']; // client / user
+    $stmt->close();
+
+    // 6️⃣ Update chats table with rating and notes
+    $stmt = $conn->prepare(
+        "UPDATE chats SET rating = ?, rate_notes = ? WHERE id = ?"
+    );
     $stmt->bind_param("isi", $rating, $rateNotes, $chatId);
 
-    if ($stmt->execute()) {
-        echo json_encode(["message" => "Chat rated successfully"]);
-    } else {
+    if (!$stmt->execute()) {
         echo json_encode(["error" => "Failed to rate chat"]);
+        $stmt->close();
+        exit;
+    }
+    $stmt->close();
+
+    // 7️⃣ Insert into chat_history (fully FK-safe)
+    $stmt = $conn->prepare(
+        "INSERT INTO chat_history (chat_id, errand_id, runner_id, user_id, rating, rate_notes)
+         VALUES (?, ?, ?, ?, ?, ?)"
+    );
+    $stmt->bind_param("iiiiss", $chatId, $errandId, $runnerId, $userId, $rating, $rateNotes);
+
+    if ($stmt->execute()) {
+        echo json_encode([
+            "message" => "Chat rated successfully",
+            "chat_id" => $chatId,
+            "errand_id" => $errandId,
+            "runner_id" => $runnerId,
+            "user_id" => $userId
+        ]);
+    } else {
+        echo json_encode(["error" => "Failed to save chat history"]);
     }
 
     $stmt->close();
 }
+
 
 
 
