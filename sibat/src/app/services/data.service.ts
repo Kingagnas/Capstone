@@ -17,9 +17,10 @@ export class DataService {
       this.http.post<any>(`${this.apiUrl}?route=auth/login`, loginData).subscribe(
         (data) => {
           if (data.token && data.role) {
-            // 🔹 Store the JWT token and user role in localStorage
+            // 🔹 Store the JWT token, user role, and userid in localStorage
             localStorage.setItem('token', data.token);
             localStorage.setItem('userRole', data.role);
+            localStorage.setItem('userid', data.userid || data.uid || '');
 
             observer.next(data);
             observer.complete();
@@ -465,6 +466,12 @@ getIsUser(): Observable<{ isUser: boolean, userId: number | null }> {
   return this.http.get<{ isUser: boolean, userId: number | null }>(`${this.apiUrl}?route=getIsUser`, { headers });
 }
 
+
+  // Get errands history for logged-in runner
+  getErrandsHistory(): Observable<any> {
+    // No authorization required since JWT was removed
+    return this.http.get<any>(`${this.apiUrl}?route=getErrandsHistory`);
+  }
 
 
 

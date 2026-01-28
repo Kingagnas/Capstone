@@ -130,6 +130,12 @@ switch ($requestUri) {
         getErrandDetails();
         break;
 
+    case 'getErrandsHistory':
+        require_once 'routes/get.php';
+        getErrandsHistory();
+        break;
+
+
 
 
 

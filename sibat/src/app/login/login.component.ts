@@ -54,9 +54,10 @@ export class LoginComponent {
       (response) => {
         this.snackBar.open('Login Successful', 'Close', { duration: 3000 });
 
-        // 🔹 Store token & role in localStorage
+        // 🔹 Store token, role, and userid in localStorage
         localStorage.setItem('token', response.token);
         localStorage.setItem('userRole', response.role);
+        localStorage.setItem('userid', response.userid || response.uid || '');
 
         // 🔹 Redirect user based on their role
         switch (response.role) {

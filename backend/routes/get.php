@@ -488,6 +488,54 @@ function getErrandDetails() {
     $stmt->close();
 }
 
+function getErrandsHistory() {
+    global $conn;
+
+    // Only allow GET requests
+    if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+        echo json_encode(["error" => "Invalid request method"]);
+        exit;
+    }
+
+    // Fetch chat history with additional info
+    $stmt = $conn->prepare(
+        "SELECT 
+            ch.history_id,
+            ch.chat_id,
+            ch.runner_id,
+            ch.user_id,
+            ch.status,
+            ch.rating,
+            ch.created_at,
+            ch.updated_at,
+            ch.errand_id,
+            ch.rate_notes,
+            e.tip,
+            e.total_price,
+            e.service_charge,
+            u.first_name AS customer_first_name,
+            u.last_name AS customer_last_name
+         FROM chat_history ch
+         JOIN errands e ON ch.errand_id = e.errand_id
+         JOIN users u ON e.userid = u.userid
+         ORDER BY ch.created_at DESC"
+    );
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $history = [];
+    while ($row = $result->fetch_assoc()) {
+        $history[] = $row;
+    }
+
+    $stmt->close();
+
+    echo json_encode([
+        "chat_history" => $history
+    ]);
+}
+
 
 
 

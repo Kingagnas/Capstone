@@ -1,1 +1,31 @@
-<p>errand-history works!</p>
+<h2 class="title">Errand Chat History</h2>
+
+<div *ngIf="chatHistory.length === 0" class="empty">
+  No chat history found.
+</div>
+
+<div class="cards-container">
+  <div *ngFor="let chat of chatHistory" class="chat-card">
+    <div class="card-header">
+      <span><strong>History ID:</strong> {{ chat.history_id }}</span>
+      <span><strong>Status:</strong> {{ chat.status }}</span>
+    </div>
+    <div class="card-body">
+      <!-- <p><strong>Chat ID:</strong> {{ chat.chat_id }}</p> -->
+      <!-- <p><strong>Runner ID:</strong> {{ chat.runner_id }}</p> -->
+      <p><strong>User ID:</strong> {{ chat.user_id }}</p>
+      <p><strong>Customer First Name:</strong> {{ chat.customer_first_name }}</p>
+      <p><strong>Customer Last Name:</strong> {{ chat.customer_last_name }}</p>
+      <!-- <p><strong>Errand ID:</strong> {{ chat.errand_id }}</p> -->
+      <p><strong>Rating:</strong> {{ chat.rating ?? 'N/A' }}</p>
+      <p><strong>Rate Notes:</strong> {{ chat.rate_notes ?? 'None' }}</p>
+      <p><strong>Created At:</strong> {{ chat.created_at }}</p>
+      <p><strong>Service Charge:</strong> {{ chat.service_charge ?? 'None' }}</p>
+      <p><strong>Tip:</strong> {{ chat.tip }}</p>
+      <p><strong>Total Price:</strong> {{ chat.total_price }}</p>
+
+      <!-- <p><strong>Updated At:</strong> {{ chat.updated_at ?? 'Not updated' }}</p> -->
+    </div>
+  </div>
+</div>
+
