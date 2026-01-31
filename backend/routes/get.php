@@ -510,9 +510,9 @@ function getErrandsHistory() {
             ch.updated_at,
             ch.errand_id,
             ch.rate_notes,
-            e.tip,
-            e.total_price,
-            e.service_charge,
+            e.tip, as tip,
+            e.total_price, as total_price,
+            e.service_charge, as service_charge,
             u.first_name AS customer_first_name,
             u.last_name AS customer_last_name
          FROM chat_history ch
