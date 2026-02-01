@@ -15,12 +15,14 @@
     height: auto;
     display: block;
     margin: 20px auto;
+    z-index: 1;
 }
   
 /* Logo Container */
 .logo-container {
     text-align: center;
     margin-right: 30px;
+    z-index: 1;
 }
   
 /* Card Styling */
@@ -45,6 +47,7 @@
 .form-container {
     width: 50%;
     padding: 10px; /* Reduced padding for small screens */
+    height: 393px
 }
   
 /* Move to Register Form */
@@ -166,7 +169,7 @@ h2 {
     
     .logo {
         max-width: 300px;
-        margin-bottom: 30px;
+        margin-bottom: 0px;
     }
 }
 

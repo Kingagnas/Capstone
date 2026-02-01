@@ -11,7 +11,7 @@
         <ng-template matStepLabel>Errand Details</ng-template>
         <!-- Collecting Location -->
         <div class="form-group">
-          <label for="collectingLocation">Collecting Location</label>
+          <label for="collectingLocation">Errand Location</label>
           <input type="text" id="collectingLocation" formControlName="collectingLocation" required />
         </div>
 
@@ -41,19 +41,52 @@
 
     <!-- Step 2: Summary -->
     <mat-step>
-      <ng-template matStepLabel>Summary</ng-template>
-      <div class="summary">
-        <h1>This would be the initial price of the errand.</h1>
-        <p>Base Price: ₱<span>{{ basePrice }}</span></p>
-        <p>Service Charge (5%): ₱<span>{{ serviceCharge }}</span></p>
-        <p>Delivery Charge: ₱<span>{{ deliveryCharge }}</span></p>
-        <p><strong>Initial Price: ₱<span>{{ totalPrice }}</span> + the errand recipt cost</strong></p>
-      </div>
+  <ng-template matStepLabel>Summary</ng-template>
 
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="submitErrand()">Confirm</button>
-      </div>
-    </mat-step>
+  <div class="summary">
+    <h2>Price Breakdown</h2>
+
+    <p>
+      Base Price:
+      <span>₱{{ basePrice | number:'1.2-2' }}</span>
+    </p>
+
+    <p>
+      Delivery Charge:
+      <span>₱{{ deliveryCharge | number:'1.2-2' }}</span>
+    </p>
+
+    <p>
+      Service Charge (10%):
+      <span>₱{{ serviceCharge | number:'1.2-2' }}</span>
+    </p>
+
+    <p>
+      Tip:
+      <span>₱{{ detailsForm.get('tip')?.value | number:'1.2-2' }}</span>
+    </p>
+
+    <hr />
+
+    <p class="total">
+      <strong>
+        Total Price:
+        ₱{{ totalPrice | number:'1.2-2' }}
+      </strong>
+    </p>
+
+    <small class="note">
+      * Receipt cost will be paid separately if applicable ,<strong>(No Receipt = No Pay)</strong>
+      
+    </small>
+  </div>
+
+  <div>
+    <button mat-button matStepperPrevious>Back</button>
+    <button mat-button color="primary" (click)="submitErrand()">
+      Confirm
+    </button>
+  </div>
+</mat-step>
   </mat-horizontal-stepper>
 </div>

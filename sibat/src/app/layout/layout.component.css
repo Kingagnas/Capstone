@@ -57,6 +57,7 @@
   padding: 12px;
   border-radius: 8px;
   margin: 0px;
+  margin-top: 639px;
 }
 
 .logout-button:hover {
@@ -138,6 +139,10 @@
   .sidenav-container {
     flex-direction: column;
   }
+    .logout-button {
+  margin-top: 552px;
+}
+
 
   .mat-sidenav {
     width: 220px;

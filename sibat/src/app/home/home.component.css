@@ -95,3 +95,61 @@ h2 {
     background-color: #D2665A;
     color: white;
 }
+
+/* Background Animation */
+.spear-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  z-index: 0;
+  pointer-events: none; /* 👈 MOST IMPORTANT */
+}
+
+.spear {
+    position: absolute;
+    width: 150px; /* Smaller by default */
+    height: auto;
+    opacity: 0.3; /* Make them subtle */
+    animation: panSpear 10s linear infinite;
+      opacity: 0.15;
+  filter: blur(0.5px);
+}
+  
+@keyframes panSpear {
+    0% {
+        transform: translateX(-1000%);
+    }
+    100% {
+        transform: translateX(1500%);
+    }
+}
+  
+/* Position each spear at different heights and speeds */
+.spear:nth-child(1) {
+    top: 5%;
+    animation-duration: 8s;
+}
+  
+.spear:nth-child(2) {
+    top: 25%;
+    animation-duration: 9s;
+}
+  
+.spear:nth-child(3) {
+    top: 50%;
+    animation-duration: 10s;
+}
+  
+.spear:nth-child(4) {
+    top: 70%;
+    animation-duration: 11s;
+}
+  
+.spear:nth-child(5) {
+    top: 80%;
+    animation-duration: 12s;
+}

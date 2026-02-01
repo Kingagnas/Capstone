@@ -473,6 +473,10 @@ getIsUser(): Observable<{ isUser: boolean, userId: number | null }> {
     return this.http.get<any>(`${this.apiUrl}?route=getErrandsHistory`);
   }
 
+// data.service.ts
+uploadRemittanceProof(formData: FormData) {
+  return this.http.post(`${this.apiUrl}?route=uploadRemittanceProof`, formData);
+}
 
 
 

@@ -40,45 +40,48 @@ export class LoginComponent {
     this.isRegisterMode = !this.isRegisterMode;
   }
   onSubmitLogin() {
-    if (!this.username || !this.password) {
-      this.snackBar.open('Username and password are required', 'Close', { duration: 3000 });
-      return;
-    }
-
-    const loginData = {
-      username: this.username,
-      password: this.password
-    };
-
-    this.dataService.login(loginData).subscribe(
-      (response) => {
-        this.snackBar.open('Login Successful', 'Close', { duration: 3000 });
-
-        // 🔹 Store token, role, and userid in localStorage
-        localStorage.setItem('token', response.token);
-        localStorage.setItem('userRole', response.role);
-        localStorage.setItem('userid', response.userid || response.uid || '');
-
-        // 🔹 Redirect user based on their role
-        switch (response.role) {
-          case 'user':
-            this.router.navigate(['/home']);
-            break;
-          case 'runner':
-            this.router.navigate(['/runner']);
-            break;
-          case 'admin':
-            this.router.navigate(['/admin']);
-            break;
-          default:
-            this.router.navigate(['/home']); // Default to home if role is unknown
-        }
-      },
-      (error) => {
-        this.snackBar.open(error.error || 'Invalid username or password', 'Close', { duration: 3000 });
-      }
-    );
+  if (!this.username || !this.password) {
+    this.snackBar.open('Username and password are required', 'Close', { duration: 3000 });
+    return;
   }
+
+  const loginData = {
+    username: this.username,
+    password: this.password
+  };
+
+  this.dataService.login(loginData).subscribe(
+    (response) => {
+      this.snackBar.open('Login Successful', 'Close', { duration: 3000 });
+
+      // 🔹 Store token, role, and userid in localStorage
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('userRole', response.role);
+      localStorage.setItem('userid', response.userid || response.uid || '');
+
+      // 🔹 Log the stored userid to check
+      console.log('Stored userid in localStorage:', localStorage.getItem('userid'));
+
+      // 🔹 Redirect user based on their role
+      switch (response.role) {
+        case 'user':
+          this.router.navigate(['/home']);
+          break;
+        case 'runner':
+          this.router.navigate(['/runner']);
+          break;
+        case 'admin':
+          this.router.navigate(['/admin']);
+          break;
+        default:
+          this.router.navigate(['/home']); // Default to home if role is unknown
+      }
+    },
+    (error) => {
+      this.snackBar.open(error.error || 'Invalid username or password', 'Close', { duration: 3000 });
+    }
+  );
+}
 
   
   

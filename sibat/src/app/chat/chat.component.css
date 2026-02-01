@@ -490,7 +490,7 @@ mat-icon.selected {
     flex-direction: column;
     height: auto;
     min-height: calc(100vh - 120px);
-    padding-bottom: 80px; /* Add padding to bottom to prevent content being hidden behind the button */
+    padding-bottom: 1px; /* Add padding to bottom to prevent content being hidden behind the button */
   }
 
   .chat-sidebar {
@@ -594,7 +594,7 @@ mat-icon.selected {
 /* Even smaller screens */
 @media (max-width: 480px) {
   .chat-container {
-    min-height: calc(100vh - 100px);
+    min-height: calc(90vh - 100px);
     border: none;
     border-radius: 0;
   }
@@ -643,22 +643,22 @@ mat-icon.selected {
 
 /* Mobile Sidebar Toggle Button */
 .mobile-sidebar-toggle {
-  display: none;
-  position: fixed;
-  bottom: 20px; /* Position at the bottom instead of top */
-  left: 20px;
-  z-index: 100;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s, background-color 0.2s;
+     display: none;
+    position: fixed;
+    bottom: 670px;
+    left: 349px;
+    z-index: 100;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 69%;
+    width: 60px;
+    height: 40px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s, background-color 0.2s;
 }
 
 .mobile-sidebar-toggle:active {

@@ -16,6 +16,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { PostComponent } from './post/post.component';
 import { ChatComponent } from './chat/chat.component';
 import { ErrandHistoryComponent } from './errand-history/errand-history.component';
+import { RemitanceComponent } from './remitance/remitance.component';
 
 const routes: Routes = [
   // Redirect root to login
@@ -34,6 +35,7 @@ const routes: Routes = [
     { path: 'chat/:chatId', component: ChatComponent },
     { path: 'profile', component: ProfileComponent }, // Add ProfileComponent here
     { path: 'history', component: ErrandHistoryComponent }, // Add ProfileComponent here
+    { path: 'remitance', component: RemitanceComponent }, // Add ProfileComponent here
 
 
     

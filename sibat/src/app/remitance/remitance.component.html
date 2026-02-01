@@ -1,0 +1,81 @@
+<div class="remittance-container">
+  <h2>Runner Weekly Overview</h2>
+
+  <div class="week-tabs">
+    <button *ngFor="let w of weeks" (click)="selectWeek(w)" [class.active]="selectedWeek === w">
+      {{ w.display }}
+    </button>
+  </div>
+
+  <div class="weekly-stats">
+    <p>Total Earnings (Base Price Only): 
+      <span class="green-text">₱{{ weeklyEarnings | number:'1.2-2' }}</span>
+    </p>
+    <p>Weekly Remittance (Service Charge Only):
+      <span class="green-text">₱{{ weeklyRemittance | number:'1.2-2' }}</span>
+    </p>
+    <button mat-raised-button color="primary" class="pay-button" (click)="openPaymentDialog()" 
+      [disabled]="weeklyRemittance === 0">
+      Pay Remittance
+    </button>
+  </div>
+
+  <div *ngIf="filteredErrands.length === 0" class="empty">No errands found for this week.</div>
+
+  <div class="table-container" *ngIf="filteredErrands.length > 0">
+    <table class="errands-table">
+      <thead>
+        <tr>
+          <th>Errand ID</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th>Created At</th>
+          <th>Base Price</th>
+          <th>Delivery Charge</th>
+          <th>Service Charge</th>
+          <th>Tip</th>
+          <th>Total Price</th>
+          <th>Remittance Status</th>
+
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of filteredErrands">
+          <td>{{ e.errand_id }}</td>
+          <td>{{ e.customer_first_name }} {{ e.customer_last_name }}</td>
+          <td>{{ e.status }}</td>
+          <td>{{ formatDate(e.created_at) }}</td>
+          <td>₱{{ e.base_price | number:'1.2-2' }}</td>
+          <td>₱{{ e.delivery_charge | number:'1.2-2' }}</td>
+          <td class="green-text">₱{{ e.service_charge | number:'1.2-2' }}</td>
+          <td>₱{{ e.tip | number:'1.2-2' }}</td>
+          <td>₱{{ e.total_price | number:'1.2-2' }}</td>
+          <td [ngClass]="{
+  'remitted-not-yet': e.remitted === 'Not Yet',
+  'remitted-pending': e.remitted === 'Pending',
+  'remitted-remitted': e.remitted === 'Remitted'
+}">{{ e.remitted }}</td>
+<td *ngIf="e.proof"><a [href]="'https://sibatapi2.loophole.site/CAPSTONE/backend/uploads/proof/' + e.proof" target="_blank">View</a></td>
+
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mobile Cards -->
+  <div class="cards-container" *ngIf="filteredErrands.length > 0">
+    <div class="errand-card" *ngFor="let e of filteredErrands">
+      <p><strong>Errand ID:</strong> {{ e.errand_id }}</p>
+      <p><strong>Customer:</strong> {{ e.customer_first_name }} {{ e.customer_last_name }}</p>
+      <p><strong>Status:</strong> {{ e.status }}</p>
+      <p><strong>Created At:</strong> {{ formatDate(e.created_at) }}</p>
+      <p><strong>Base Price:</strong> ₱{{ e.base_price | number:'1.2-2' }}</p>
+      <p><strong>Delivery Charge:</strong> ₱{{ e.delivery_charge | number:'1.2-2' }}</p>
+      <p><strong>Service Charge:</strong> <span class="green-text">₱{{ e.service_charge | number:'1.2-2' }}</span></p>
+      <p><strong>Tip:</strong> ₱{{ e.tip | number:'1.2-2' }}</p>
+      <p><strong>Total Price:</strong> ₱{{ e.total_price | number:'1.2-2' }}</p>
+    </div>
+  </div>
+</div>

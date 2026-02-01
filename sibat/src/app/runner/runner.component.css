@@ -51,6 +51,7 @@
   padding: 12px;
   border-radius: 8px;
   margin: 0px;
+  margin-top: 550px;
 }
 
 .logout-button:hover {
@@ -128,6 +129,9 @@
   .sidenav-container {
     flex-direction: column;
   }
+  .logout-button {
+  margin-top: 476px;
+}
 
   .sidebar {
     width: 220px;         /* Fixed width for mobile */

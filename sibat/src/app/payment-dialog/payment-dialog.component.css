@@ -1,0 +1,43 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+}
+
+.qr-container {
+  margin: 10px 0;
+}
+
+.qr-code {
+  width: 200px;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+}
+
+.upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+
+.upload-section input[type="file"] {
+  cursor: pointer;
+}
+
+.file-name {
+  font-size: 13px;
+  color: #555;
+}
+
+/* Responsive for mobile */
+@media (max-width: 480px) {
+  .qr-code {
+    width: 150px;
+  }
+}

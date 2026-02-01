@@ -135,6 +135,10 @@ switch ($requestUri) {
         getErrandsHistory();
         break;
 
+    case 'uploadRemittanceProof':
+        require_once 'routes/post.php';
+        uploadRemittanceProof();
+        break;
 
 
 

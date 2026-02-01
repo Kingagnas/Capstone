@@ -46,6 +46,8 @@ import { ChatComponent } from './chat/chat.component';
 import { ErrandHistoryComponent } from './errand-history/errand-history.component';
 import { RateComponent } from './rate/rate.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { RemitanceComponent } from './remitance/remitance.component';
+import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +67,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ChatComponent,
     ErrandHistoryComponent,
     RateComponent,
+    RemitanceComponent,
+    PaymentDialogComponent,
     
 
   ],

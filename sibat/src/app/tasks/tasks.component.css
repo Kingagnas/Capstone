@@ -1,64 +1,119 @@
 .tasks-container {
-    margin: 20px;
-  }
-  
+  margin: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Card */
+.errand-card {
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  background-color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.errand-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+/* Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.header-left h3 {
+  margin: 0;
+  color: #28a745; /* Green tip */
+  font-size: 1.1rem;
+}
+
+.header-left p {
+  margin: 4px 0;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+/* Toggle button */
+.toggle-details {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.toggle-details:hover {
+  background-color: #0056b3;
+}
+
+/* Card details */
+.card-details {
+  margin-top: 16px;
+  padding: 12px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-details p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.accept-btn {
+  align-self: flex-start;
+  margin-top: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.accept-btn:hover {
+  background-color: #218838;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
   .errand-card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 12px;
   }
-  
+
   .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .card-header h3 {
-    margin: 0;
-    color: #333;
+
+  .toggle-details {
+    margin-top: 10px;
+    width: 100%;
   }
-  
-  .card-header p {
-    margin: 4px 0;
-    color: #555;
-  }
-  
-  .card-header button {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .card-header button:hover {
-    background-color: #0056b3;
-  }
-  
+
   .card-details {
-    margin-top: 16px;
-    padding: 8px;
-    background-color: #f9f9f9;
-    border-radius: 4px;
+    padding: 10px;
   }
-  
-  .card-details p {
-    margin: 4px 0;
+
+  .accept-btn {
+    width: 100%;
   }
-  
-  .card-details button {
-    background-color: #28a745;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .card-details button:hover {
-    background-color: #218838;
-  }
+}

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-layout',
@@ -17,15 +18,34 @@ ngOnInit() {
     this.isMobile = window.innerWidth <= 768;
   });
 }
-  logout() {
-    // Clear JWT and any stored user data
-    localStorage.removeItem('userId');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userName');
-    localStorage.removeItem('jwt'); // Make sure you are storing the JWT with this key
-    localStorage.removeItem('token'); // Clear token
+logout() {
+  Swal.fire({
+    title: 'Are you sure you want to logout?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, logout',
+    cancelButtonText: 'Cancel',
+    reverseButtons: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Clear JWT and any stored user data
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('userName');
+      localStorage.removeItem('jwt');
+      localStorage.removeItem('token');
 
-    // Redirect to login page
-    this.router.navigate(['/login']);
-  }
+      // Show success message
+      Swal.fire({
+        icon: 'success',
+        title: 'Logged out!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      // Redirect to login page
+      this.router.navigate(['/login']);
+    }
+  });
+}
 }

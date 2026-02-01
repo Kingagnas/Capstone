@@ -6,26 +6,52 @@
 
 <div class="cards-container">
   <div *ngFor="let chat of chatHistory" class="chat-card">
-    <div class="card-header">
-      <span><strong>History ID:</strong> {{ chat.history_id }}</span>
-      <span><strong>Status:</strong> {{ chat.status }}</span>
-    </div>
-    <div class="card-body">
-      <!-- <p><strong>Chat ID:</strong> {{ chat.chat_id }}</p> -->
-      <!-- <p><strong>Runner ID:</strong> {{ chat.runner_id }}</p> -->
-      <p><strong>User ID:</strong> {{ chat.user_id }}</p>
-      <p><strong>Customer First Name:</strong> {{ chat.customer_first_name }}</p>
-      <p><strong>Customer Last Name:</strong> {{ chat.customer_last_name }}</p>
-      <!-- <p><strong>Errand ID:</strong> {{ chat.errand_id }}</p> -->
-      <p><strong>Rating:</strong> {{ chat.rating ?? 'N/A' }}</p>
-      <p><strong>Rate Notes:</strong> {{ chat.rate_notes ?? 'None' }}</p>
-      <p><strong>Created At:</strong> {{ chat.created_at }}</p>
-      <p><strong>Service Charge:</strong> {{ chat.service_charge ?? 'None' }}</p>
-      <p><strong>Tip:</strong> {{ chat.tip }}</p>
-      <p><strong>Total Price:</strong> {{ chat.total_price }}</p>
 
-      <!-- <p><strong>Updated At:</strong> {{ chat.updated_at ?? 'Not updated' }}</p> -->
+    <div class="card-header">
+      <span>History #{{ chat.history_id }}</span>
+      <span class="status">{{ chat.status }}</span>
     </div>
+
+    <div class="card-body">
+      <p>
+        <strong>Customer:</strong>
+        {{ chat.customer_first_name }} {{ chat.customer_last_name }}
+      </p>
+
+      <p><strong>User ID:</strong> {{ chat.user_id }}</p>
+
+      <p>
+        <strong>Rating:</strong>
+        {{ chat.rating ?? 'N/A' }}
+      </p>
+
+      <p>
+        <strong>Rate Notes:</strong>
+        {{ chat.rate_notes ?? 'None' }}
+      </p>
+
+      <p>
+        <strong>Created:</strong>
+        {{ chat.created_at | date:'MMMM d, y • h:mm a' }}
+      </p>
+
+      <hr />
+
+      <p class="money">
+        <strong>Service Charge:</strong>
+        ₱{{ chat.service_charge ?? '0.00' }}
+      </p>
+
+      <p class="money">
+        <strong>Tip:</strong>
+        ₱{{ chat.tip ?? '0.00' }}
+      </p>
+
+      <p class="money total">
+        <strong>Total Price:</strong>
+        ₱{{ chat.total_price ?? '0.00' }}
+      </p>
+    </div>
+
   </div>
 </div>
-

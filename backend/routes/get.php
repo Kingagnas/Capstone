@@ -499,26 +499,32 @@ function getErrandsHistory() {
 
     // Fetch chat history with additional info
     $stmt = $conn->prepare(
-        "SELECT 
-            ch.history_id,
-            ch.chat_id,
-            ch.runner_id,
-            ch.user_id,
-            ch.status,
-            ch.rating,
-            ch.created_at,
-            ch.updated_at,
-            ch.errand_id,
-            ch.rate_notes,
-            e.tip, as tip,
-            e.total_price, as total_price,
-            e.service_charge, as service_charge,
-            u.first_name AS customer_first_name,
-            u.last_name AS customer_last_name
-         FROM chat_history ch
-         JOIN errands e ON ch.errand_id = e.errand_id
-         JOIN users u ON e.userid = u.userid
-         ORDER BY ch.created_at DESC"
+           "SELECT 
+        ch.history_id,
+        ch.chat_id,
+        ch.runner_id,
+        ch.user_id,
+        ch.status,
+        ch.rating,
+        ch.created_at,
+        ch.updated_at,
+        ch.errand_id,
+        ch.rate_notes,
+        -- ch.remitted,
+        -- ch.proof,
+        e.remitted AS remitted,
+        e.proof AS proof,
+        e.tip AS tip,
+        e.total_price AS total_price,
+        e.service_charge AS service_charge,
+        e.delivery_charge AS delivery_charge,
+        e.base_price AS base_price,
+        u.first_name AS customer_first_name,
+        u.last_name AS customer_last_name
+     FROM chat_history ch
+     JOIN errands e ON ch.errand_id = e.errand_id
+     JOIN users u ON e.userid = u.userid
+     ORDER BY ch.created_at DESC"
     );
 
     $stmt->execute();

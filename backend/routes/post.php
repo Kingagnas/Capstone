@@ -585,10 +585,10 @@ function createErrand() {
     $taskDescription = $data['task_description'] ?? null;
     $tip = floatval($data['tip'] ?? 0);
     $deliveryLocation = $data['delivery_location'] ?? null;
-    $basePrice = 100; // Example base price
-    $serviceCharge = $basePrice * 0.05; // 5% service charge
+    $basePrice = 50; // Example base price
+    $serviceCharge = $basePrice * 0.10; // 5% service charge
     $deliveryCharge = 50; // Example delivery charge
-    $totalPrice = $basePrice + $serviceCharge + $deliveryCharge + $tip;
+    $totalPrice = $basePrice + $serviceCharge + $deliveryCharge;
 
     // Validate required fields
     if (!$collectingLocation || !$taskDescription || !$deliveryLocation) {
@@ -853,6 +853,82 @@ function rateChat() {
 
     $stmt->close();
 }
+
+
+
+ 
+function uploadRemittanceProof() {
+    global $conn;
+
+    header('Content-Type: application/json'); // Ensure JSON response
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        echo json_encode(["error" => "Invalid request method"]);
+        exit;
+    }
+
+    if (!isset($_FILES['proof']) || !isset($_POST['weekStart']) || !isset($_POST['weekEnd']) || !isset($_POST['runnerId'])) {
+        echo json_encode(["error" => "Missing required data"]);
+        exit;
+    }
+
+    $weekStart = $_POST['weekStart'];
+    $weekEnd = $_POST['weekEnd'];
+    $runnerId = $_POST['runnerId'];
+
+    // Handle file upload
+    $file = $_FILES['proof'];
+    $uploadDir = __DIR__ . '/../uploads/proof/';
+    if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+
+    $filename = time() . '_' . basename($file['name']);
+    $targetPath = $uploadDir . $filename;
+
+    if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+        echo json_encode(["error" => "Failed to upload file"]);
+        exit;
+    }
+
+    // Update errands table instead of chat_history
+    $stmt = $conn->prepare("
+        UPDATE errands
+        SET remitted = 'Pending', proof = ?
+        WHERE runner_id = ? AND created_at BETWEEN ? AND ?
+    ");
+    $stmt->bind_param('siss', $filename, $runnerId, $weekStart, $weekEnd);
+
+    if ($stmt->execute()) {
+        $affected = $stmt->affected_rows;
+        if ($affected > 0) {
+            echo json_encode(["success" => true, "message" => "Remittance proof uploaded and status set to Pending", "rows_updated" => $affected]);
+        } else {
+            // No rows matched the WHERE clause
+            echo json_encode(["success" => false, "message" => "No matching errands found for the specified runner and week.", "rows_updated" => 0]);
+        }
+    } else {
+        // Return DB error for debugging (remove or secure in production)
+        $dbErr = $stmt->error ?? $conn->error;
+        echo json_encode(["error" => "Database update failed", "db_error" => $dbErr]);
+    }
+
+    $stmt->close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

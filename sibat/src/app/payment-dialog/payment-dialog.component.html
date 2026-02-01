@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Pay Remittance</h2>
+
+<mat-dialog-content class="dialog-content">
+  <p>Total Amount: <strong>₱{{ data.amount | number:'1.2-2' }}</strong></p>
+
+  <p>Scan the QR code below to pay:</p>
+  <div class="qr-container">
+    <img src="assets/QR1.png" alt="Sibat QR" class="qr-code" />
+  </div>
+
+  <div class="upload-section">
+    <label for="proofUpload">Upload Proof of Payment:</label>
+    <input id="proofUpload" type="file" (change)="onFileSelected($event)" accept="image/*" />
+    <p *ngIf="proofFile" class="file-name">Selected: {{ proofFile.name }}</p>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="submitPayment()">Submit</button>
+</mat-dialog-actions>

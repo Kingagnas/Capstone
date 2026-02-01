@@ -1,21 +1,25 @@
 <div class="tasks-container">
-    <h1>Available Errands</h1>
-    <div class="errand-card" *ngFor="let errand of errands">
-      <div class="card-header">
+  <h1>Available Errands</h1>
+
+  <div class="errand-card" *ngFor="let errand of errands">
+    <div class="card-header">
+      <div class="header-left">
         <h3>Tip: ₱{{ errand.tip }}</h3>
-        <p>What to Do: {{ errand.task_description }}</p>
-        <p>Collecting Location: {{ errand.collecting_location }}</p>
-        <button (click)="errand.showDetails = !errand.showDetails">
-          {{ errand.showDetails ? 'Hide Details' : 'View Details' }}
-        </button>
+        <p>{{ errand.task_description }}</p>
+        <p><strong>Collecting:</strong> {{ errand.collecting_location }}</p>
       </div>
-      <div class="card-details" *ngIf="errand.showDetails">
-        <p><strong>Delivery Location:</strong> {{ errand.delivery_location }}</p>
-        <p><strong>Base Price:</strong> ₱{{ errand.base_price }}</p>
-        <p><strong>Service Charge:</strong> ₱{{ errand.service_charge }}</p>
-        <p><strong>Delivery Charge:</strong> ₱{{ errand.delivery_charge }}</p>
-        <p><strong>Total Price:</strong> ₱{{ errand.total_price }}</p>
-        <button (click)="acceptErrand(errand.errand_id)">Accept Errand</button>
-      </div>
+      <button class="toggle-details" (click)="errand.showDetails = !errand.showDetails">
+        {{ errand.showDetails ? 'Hide Details' : 'View Details' }}
+      </button>
+    </div>
+
+    <div class="card-details" *ngIf="errand.showDetails">
+      <p><strong>Delivery Location:</strong> {{ errand.delivery_location }}</p>
+      <p><strong>Base Price:</strong> ₱{{ errand.base_price }}</p>
+      <p><strong>Service Charge:</strong> ₱{{ errand.service_charge }}</p>
+      <p><strong>Delivery Charge:</strong> ₱{{ errand.delivery_charge }}</p>
+      <p><strong>Total Price:</strong> ₱{{ errand.total_price }}</p>
+      <button class="accept-btn" (click)="acceptErrand(errand.errand_id)">Accept Errand</button>
     </div>
   </div>
+</div>

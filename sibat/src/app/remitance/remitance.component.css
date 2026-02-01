@@ -1,0 +1,100 @@
+.remittance-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.week-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+.week-tabs button {
+  padding: 8px 12px;
+  border: 1px solid #007bff;
+  border-radius: 5px;
+  background: white;
+  cursor: pointer;
+}
+
+.week-tabs button.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.weekly-stats {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.green-text {
+  color: green;
+  font-weight: bold;
+}
+
+.pay-button {
+  margin-top: 10px;
+}
+
+.empty {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  margin-top: 20px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.errands-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.errands-table th, .errands-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+}
+
+.errands-table th {
+  background-color: #f0f0f0;
+}
+
+.errands-table tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* Mobile Cards */
+.cards-container {
+  display: none;
+}
+
+.errand-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.errand-card p {
+  margin: 5px 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .errands-table {
+    display: none;
+  }
+  .cards-container {
+    display: block;
+  }
+}
+
+.remitted-not-yet { color: red; font-weight: bold; }
+.remitted-pending { color: orange; font-weight: bold; }
+.remitted-remitted { color: green; font-weight: bold; }
