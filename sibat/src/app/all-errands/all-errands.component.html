@@ -44,7 +44,8 @@
           <th>ID</th>
           <th>User</th>
           <th>Runner</th>
-          <!-- <th>Status</th> -->
+        <th>Rating</th>
+        <th>Rate Notes</th>
           <th>Total</th>
           <th>Remitted</th>
           <th>Proof</th>
@@ -59,7 +60,8 @@
           <td>{{ e.errand_id }}</td>
           <td>{{ e.user_name }}</td>
           <td>{{ e.runner_name || '—' }}</td>
-          <!-- <td>{{ e.status }}</td> -->
+        <td>{{ e.rating || '—' }}/5</td>
+        <td>{{ e.rate_notes || '—' }}</td>
           <td>₱{{ e.total_price | number:'1.2-2' }}</td>
 
           <td>
@@ -102,6 +104,8 @@
       <p><strong>ID:</strong> {{ e.errand_id }}</p>
       <p><strong>User:</strong> {{ e.user_name }}</p>
       <p><strong>Runner:</strong> {{ e.runner_name || '—' }}</p>
+      <p><strong>Rating:</strong> {{ e.rating || '—' }}/5</p>
+      <p><strong>Notes:</strong> {{ e.rate_notes || '—' }}</p>
       <p><strong>Status:</strong> {{ e.status }}</p>
       <p><strong>Remitted:</strong> {{ e.remitted }}</p>
       <p class="tap-hint">Tap to view details</p>

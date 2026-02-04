@@ -10,6 +10,12 @@
 
     <h2 class="profile-name">{{ user.first_name }} {{ user.last_name }}</h2>
 
+<div class="runner-rating" *ngIf="user.role === 'runner'">
+  <span *ngFor="let star of getStarsArray(averageRating)">
+    <mat-icon color="warn">{{ star ? 'star' : 'star_border' }}</mat-icon>
+  </span>
+  <span class="rating-value">{{ averageRating.toFixed(2) }}/5</span>
+</div>
     <div class="profile-info-container" *ngIf="!editMode">
       <p class="profile-info"><strong>📍 Location:</strong> {{ user.location }}</p>
       <p class="profile-info"><strong>✉️ Email:</strong> {{ user.email }}</p>

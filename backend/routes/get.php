@@ -37,7 +37,7 @@ function getUserData() {
 
     // Extract token from "Bearer <token>"
     $token = str_replace("Bearer ", "", $headers['Authorization']);
-    $secretKey = 'your-secret-key'; // Ensure this is the same key used for JWT generation
+    $secretKey = 'your-secret-key'; // Same key used for JWT generation
 
     // Verify the token
     $decodedPayload = verifyJWT($token, $secretKey);
@@ -50,8 +50,12 @@ function getUserData() {
     // Get the user ID from the decoded JWT payload
     $userid = intval($decodedPayload['uid']);
 
-    // Prepare and execute the query to fetch user data including profile picture
-    $stmt = $conn->prepare("SELECT userid, first_name, last_name, username, email, contact_number, role, location, profilepic FROM users WHERE userid = ?");
+    // Fetch user data
+    $stmt = $conn->prepare("
+        SELECT userid, first_name, last_name, username, email, contact_number, role, location, profilepic
+        FROM users
+        WHERE userid = ?
+    ");
     $stmt->bind_param("i", $userid);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -64,6 +68,24 @@ function getUserData() {
             ? "https://sibatapi2.loophole.site/CAPSTONE/backend/uploads/" . $user['profilepic']
             : "https://sibatapi2.loophole.site/CAPSTONE/backend/uploads/default_profile.png";
 
+        // 🔹 Fetch runner average rating if user is a runner
+        if ($user['role'] === 'runner') {
+            $ratingStmt = $conn->prepare("
+                SELECT AVG(rating) AS average_rating
+                FROM chat_history
+                WHERE runner_id = ?
+            ");
+            $ratingStmt->bind_param("i", $userid);
+            $ratingStmt->execute();
+            $ratingResult = $ratingStmt->get_result()->fetch_assoc();
+
+            $user['average_rating'] = $ratingResult && $ratingResult['average_rating'] 
+                ? floatval($ratingResult['average_rating']) 
+                : 0;
+            
+            $ratingStmt->close();
+        }
+
         echo json_encode($user);
     } else {
         echo json_encode(["error" => "User not found"]);
@@ -71,6 +93,8 @@ function getUserData() {
 
     $stmt->close();
 }
+
+
 
 // Call the function to fetch and return user data
 function getAllUsers() {
@@ -222,12 +246,26 @@ function getErrands() {
     $sql = "
         SELECT 
             e.*,
-
-            -- User who created the errand
             CONCAT(u.first_name, ' ', u.last_name) AS user_name,
+            CONCAT(r.first_name, ' ', r.last_name) AS runner_name,
 
-            -- Runner who accepted the errand
-            CONCAT(r.first_name, ' ', r.last_name) AS runner_name
+            -- Get the rating for this errand from chat_history
+            IFNULL((
+                SELECT rating
+                FROM chat_history ch
+                WHERE ch.errand_id = e.errand_id
+                ORDER BY created_at DESC
+                LIMIT 1
+            ), 0) AS rating,
+
+            -- Get the rate notes for this errand from chat_history
+            IFNULL((
+                SELECT rate_notes
+                FROM chat_history ch
+                WHERE ch.errand_id = e.errand_id
+                ORDER BY created_at DESC
+                LIMIT 1
+            ), '') AS rate_notes
 
         FROM errands e
         LEFT JOIN users u ON e.userid = u.userid
@@ -244,6 +282,8 @@ function getErrands() {
 
     echo json_encode($errands);
 }
+
+
 
 
 

@@ -62,6 +62,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   isRateModalOpen = false;
   isErrandDetailsExpanded: boolean = false;
   isSidebarVisible: boolean = false;
+  runnerRating: number = 0; // 🔹 store the runner's average rating
+
+
 
   private socket: any;
 

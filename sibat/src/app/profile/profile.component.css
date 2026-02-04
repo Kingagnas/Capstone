@@ -76,6 +76,27 @@
     margin: 8px 0;
     text-align: left;
 }
+.runner-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+
+  mat-icon {
+    font-size: 24px;
+  }
+
+  .rating-value {
+    font-weight: bold;
+    margin-left: 0.5rem;
+    color: #f39c12;
+  }
+}
+
+
+
+
+
 
 /* --- Responsive Styles --- */
 @media (max-width: 900px) {

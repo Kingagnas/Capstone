@@ -90,7 +90,9 @@ export class AllErrandsComponent implements OnInit {
       html: `
         <p><b>User:</b> ${e.user_name}</p>
         <p><b>Runner:</b> ${e.runner_name || '—'}</p>
-        <p><b>Status:</b> ${e.status}</p>
+        
+        <p><b>Rating:</b> ${e.rating || '—'}/5</p>
+        <p><b>Notes:</b> ${e.rate_notes || '—'}</p>
         <p><b>Base:</b> ₱${e.base_price}</p>
         <p><b>Delivery:</b> ₱${e.delivery_charge}</p>
         <p><b>Service:</b> ₱${e.service_charge}</p>

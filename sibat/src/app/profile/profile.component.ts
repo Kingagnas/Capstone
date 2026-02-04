@@ -10,8 +10,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class ProfileComponent implements OnInit {
   user: any = {};
   selectedFile: File | null = null;
-  editMode = false; // 🔹 Toggle form visibility
+  editMode = false; // Toggle form visibility
   profileForm: FormGroup;
+  averageRating: number = 0; // 🔹 New property for rating
 
   constructor(private dataService: DataService, private fb: FormBuilder) {
     this.profileForm = this.fb.group({
@@ -32,7 +33,12 @@ export class ProfileComponent implements OnInit {
       (data) => {
         this.user = data;
 
-        // 🔹 Populate form only if data exists
+        // 🔹 If runner, store average rating
+        if (data.role === 'runner') {
+          this.averageRating = data.average_rating || 0;
+        }
+
+        // Populate form with user data
         if (data) {
           this.profileForm.patchValue({
             first_name: data.first_name || '',
@@ -68,7 +74,6 @@ export class ProfileComponent implements OnInit {
   toggleEdit() {
     this.editMode = !this.editMode;
 
-    // 🔹 Reset form with current user data when toggling edit mode
     if (this.editMode) {
       this.profileForm.patchValue({
         first_name: this.user.first_name || '',
@@ -84,14 +89,18 @@ export class ProfileComponent implements OnInit {
     if (this.profileForm.valid) {
       this.dataService.updateUserProfile(this.profileForm.value).subscribe(
         (response) => {
-          // 🔹 Merge updated data with existing user info
           this.user = { ...this.user, ...this.profileForm.value };
-          this.editMode = false; // Close form after saving
+          this.editMode = false;
         },
         (error) => {
           console.error('Update error:', error);
         }
       );
     }
+  }
+
+  // 🔹 Helper to create array for stars
+  getStarsArray(rating: number): number[] {
+    return Array(5).fill(0).map((_, i) => i < Math.round(rating) ? 1 : 0);
   }
 }
