@@ -478,6 +478,10 @@ uploadRemittanceProof(formData: FormData) {
   return this.http.post(`${this.apiUrl}?route=uploadRemittanceProof`, formData);
 }
 
+markAsRemitted(errandId: number) {
+  return this.http.post<any>(`${this.apiUrl}?route=markAsRemitted`, { errandId });
+}
+
 
 
 

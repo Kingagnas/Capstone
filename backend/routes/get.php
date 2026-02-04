@@ -219,8 +219,23 @@ function checkErrandStatus() {
 function getErrands() {
     global $conn;
 
-    // Query to fetch all errands
-    $result = $conn->query("SELECT * FROM errands ORDER BY created_at DESC");
+    $sql = "
+        SELECT 
+            e.*,
+
+            -- User who created the errand
+            CONCAT(u.first_name, ' ', u.last_name) AS user_name,
+
+            -- Runner who accepted the errand
+            CONCAT(r.first_name, ' ', r.last_name) AS runner_name
+
+        FROM errands e
+        LEFT JOIN users u ON e.userid = u.userid
+        LEFT JOIN users r ON e.runner_id = r.userid
+        ORDER BY e.created_at DESC
+    ";
+
+    $result = $conn->query($sql);
 
     $errands = [];
     while ($row = $result->fetch_assoc()) {
@@ -229,6 +244,8 @@ function getErrands() {
 
     echo json_encode($errands);
 }
+
+
 
  
 function getChatHistory() {
@@ -542,6 +559,32 @@ function getErrandsHistory() {
     ]);
 }
 
+function getWeeklyRemittanceSummary() {
+    global $conn;
+
+    $sql = "
+        SELECT 
+            runner_id,
+            YEARWEEK(created_at, 1) AS year_week,
+            MIN(created_at) AS week_start,
+            MAX(created_at) AS week_end,
+            SUM(service_charge) AS total_remittance,
+            SUM(base_price) AS total_earnings
+        FROM errands
+        WHERE runner_id IS NOT NULL
+        GROUP BY runner_id, year_week
+        ORDER BY year_week DESC
+    ";
+
+    $result = $conn->query($sql);
+    $rows = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+    }
+
+    echo json_encode($rows);
+}
 
 
 

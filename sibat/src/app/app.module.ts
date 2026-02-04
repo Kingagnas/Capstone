@@ -48,6 +48,7 @@ import { RateComponent } from './rate/rate.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RemitanceComponent } from './remitance/remitance.component';
 import { PaymentDialogComponent } from './payment-dialog/payment-dialog.component';
+import { AllErrandsComponent } from './all-errands/all-errands.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { PaymentDialogComponent } from './payment-dialog/payment-dialog.componen
     RateComponent,
     RemitanceComponent,
     PaymentDialogComponent,
+    AllErrandsComponent,
     
 
   ],

@@ -17,6 +17,7 @@ import { PostComponent } from './post/post.component';
 import { ChatComponent } from './chat/chat.component';
 import { ErrandHistoryComponent } from './errand-history/errand-history.component';
 import { RemitanceComponent } from './remitance/remitance.component';
+import { AllErrandsComponent } from './all-errands/all-errands.component';
 
 const routes: Routes = [
   // Redirect root to login
@@ -49,6 +50,7 @@ const routes: Routes = [
     children: [
       { path: 'users', component: UserManagementComponent },
       { path: 'applications', component: ApplicationsComponent },
+      { path: 'all-errands', component: AllErrandsComponent },
     ]
   },
 

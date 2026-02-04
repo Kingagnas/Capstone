@@ -914,6 +914,34 @@ function uploadRemittanceProof() {
     $stmt->close();
 }
 
+function markAsRemitted() {
+    global $conn;
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        echo json_encode(["success" => false, "message" => "Invalid request method"]);
+        exit;
+    }
+
+    $input = json_decode(file_get_contents('php://input'), true);
+    $errandId = $input['errandId'] ?? 0;
+
+    if (!$errandId) {
+        echo json_encode(["success" => false, "message" => "Errand ID missing"]);
+        exit;
+    }
+
+    $stmt = $conn->prepare("UPDATE errands SET remitted = 'Remitted' WHERE errand_id = ?");
+    $stmt->bind_param("i", $errandId);
+
+    if ($stmt->execute()) {
+        echo json_encode(["success" => true, "message" => "Errand marked as remitted"]);
+    } else {
+        echo json_encode(["success" => false, "message" => "Database update failed"]);
+    }
+
+    $stmt->close();
+}
+
 
 
 

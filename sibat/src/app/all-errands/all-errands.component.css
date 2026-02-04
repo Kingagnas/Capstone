@@ -1,0 +1,137 @@
+.admin-container {
+  padding: 20px;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.admin-table th {
+  background: #f3f3f3;
+}
+
+.admin-table tr {
+  cursor: pointer;
+}
+
+.admin-table tr:hover {
+  background: #fafafa;
+}
+
+/* Remittance colors */
+.notyet {
+  color: #999;
+  font-weight: bold;
+}
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+.remitted {
+  color: green;
+  font-weight: bold;
+}
+
+/* Mobile cards */
+.cards {
+  display: none;
+}
+
+.card {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
+.tap-hint {
+  font-size: 12px;
+  color: #777;
+  margin-top: 6px;
+}
+
+.empty {
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+}
+.btn-remit {
+  background: #16a34a;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-remit:hover {
+  background: #15803d;
+}
+
+.stats {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  background: #f3f3f3;
+  padding: 15px;
+  border-radius: 8px;
+  flex: 1 1 120px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.stat-card p {
+  font-size: 14px;
+  margin: 0;
+  color: #555;
+}
+
+.stat-card h3 {
+  margin: 5px 0 0 0;
+  font-size: 22px;
+  color: #111;
+}
+
+
+@media (max-width: 768px) {
+  .admin-table {
+    display: none;
+  }
+
+  .cards {
+    display: block;
+  }
+}

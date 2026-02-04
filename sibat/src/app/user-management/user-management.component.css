@@ -1,229 +1,63 @@
 .user-management {
-    padding: 2rem;
-    font-family: Arial, sans-serif;
-  }
-  
-  .user-management h1 {
-    margin-bottom: 1rem;
-    color: #2c3e50;
-  }
-  
-  .loading,
-  .error,
-  .no-users {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #7f8c8d;
-  }
-  
-  .error {
-    color: #e74c3c;
-  }
-  
-  .user-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    font-size: 0.9rem;
-  }
-  
-  .user-table th,
-  .user-table td {
-    border: 1px solid #ddd; /* Add borders to table cells */
-    padding: 0.8rem;
-    text-align: left;
-  }
-  
-  .user-table th {
-    background-color: #34495e; /* Dark gray background for header */
-    color: white;
-    text-transform: uppercase;
-  }
-  
-  .user-table tr:nth-child(odd) {
-    background-color: #f2f2f2; /* Light gray background for odd rows */
-  }
-  
-  .user-table tr:nth-child(even) {
-    background-color: #ffffff; /* White background for even rows */
-  }
-  
-  .user-table tr:hover {
-    background-color: #dcdcdc; /* Highlight row on hover */
-  }
-  
-  .user-table img {
-    border-radius: 50%;
-    display: block;
-    margin: 0 auto;
-  }
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+}
 
-  /* General Button Styles */
-.edit-btn,
-.delete-btn {
-  padding: 0.5rem 1rem;
+.user-management h1 {
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.loading,
+.error,
+.no-users {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #7f8c8d;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
   font-size: 0.9rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Edit Button Styles */
-.edit-btn {
-  background-color: #3498db; /* Blue background */
+.user-table th,
+.user-table td {
+  border: 1px solid #ddd;
+  padding: 0.8rem;
+  text-align: left;
+}
+
+.user-table th {
+  background-color: #34495e;
   color: white;
+  text-transform: uppercase;
 }
 
-.edit-btn:hover {
-  background-color: #2980b9; /* Darker blue on hover */
+.user-table tr:nth-child(odd) {
+  background-color: #f2f2f2;
 }
 
-/* Delete Button Styles */
-.delete-btn {
-  background-color: #e74c3c; /* Red background */
-  color: white;
-  margin-left: 0.5rem; /* Add spacing between buttons */
+.user-table tr:nth-child(even) {
+  background-color: #ffffff;
 }
 
-.delete-btn:hover {
-  background-color: #c0392b; /* Darker red on hover */
+.user-table tr:hover {
+  background-color: #dcdcdc;
 }
 
+.user-table img {
+  border-radius: 50%;
+  display: block;
+  margin: 0 auto;
+}
 
-/* Modal Styles */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-content h2 {
-    margin-top: 0;
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-  }
-  
-  .save-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .save-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .cancel-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #d32f2f;
-  }
-
-  /* Change Password Modal Styles */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    width: 400px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .modal-content h2 {
-    margin-top: 0;
-  }
-  
-  .form-input {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .modal-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-  }
-  
-  .save-btn {
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .save-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .cancel-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #d32f2f;
-  }
-
-  /* General Button Styles */
 .edit-btn,
 .delete-btn,
 .change-password-btn {
@@ -232,37 +66,129 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-right: 0.5rem;
 }
 
-/* Edit Button Styles */
 .edit-btn {
-  background-color: #3498db; /* Blue background */
+  background-color: #3498db;
   color: white;
 }
 
 .edit-btn:hover {
-  background-color: #2980b9; /* Darker blue on hover */
+  background-color: #2980b9;
 }
 
-/* Delete Button Styles */
 .delete-btn {
-  background-color: #e74c3c; /* Red background */
+  background-color: #e74c3c;
   color: white;
-  margin-left: 0.5rem; /* Add spacing between buttons */
 }
 
 .delete-btn:hover {
-  background-color: #c0392b; /* Darker red on hover */
+  background-color: #c0392b;
 }
 
-/* Change Password Button Styles */
 .change-password-btn {
-  background-color: #f1c40f; /* Yellow background */
+  background-color: #f1c40f;
   color: white;
-  margin-left: 0.5rem; /* Add spacing between buttons */
 }
 
 .change-password-btn:hover {
-  background-color: #f39c12; /* Darker yellow on hover */
+  background-color: #f39c12;
+}
+
+/* Modals */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #45a049;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Mobile Cards */
+.cards-container {
+  display: none;
+}
+
+.card {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.card p {
+  margin: 0.3rem 0;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Profile pic in cards */
+.profile-pic-mobile {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: block;
+  margin: 0.5rem auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .user-table {
+    display: none;
+  }
+  .cards-container {
+    display: block;
+  }
 }

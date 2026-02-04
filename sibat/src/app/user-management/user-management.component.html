@@ -1,23 +1,24 @@
 <div class="user-management">
-    <h1>User Management</h1>
-  
-    <!-- Loading Indicator -->
-    <div *ngIf="loading" class="loading">
-      <p>Loading users...</p>
-    </div>
-  
-    <!-- Error Message -->
-    <div *ngIf="errorMessage" class="error">
-      <p>{{ errorMessage }}</p>
-    </div>
-  
-    <!-- No Users Message -->
-    <div *ngIf="!loading && users.length === 0 && !errorMessage" class="no-users">
-      <p>No users found.</p>
-    </div>
-  
-    <!-- Users Table -->
-    <table *ngIf="!loading && users.length > 0" class="user-table">
+  <h1>User Management</h1>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="loading" class="loading">
+    <p>Loading users...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- No Users Message -->
+  <div *ngIf="!loading && users.length === 0 && !errorMessage" class="no-users">
+    <p>No users found.</p>
+  </div>
+
+  <!-- Users Table for Desktop -->
+  <div class="table-container" *ngIf="!loading && users.length > 0">
+    <table class="user-table">
       <thead>
         <tr>
           <th>ID</th>
@@ -49,23 +50,44 @@
             <button (click)="openEditModal(user)" class="edit-btn">Edit</button>
             <button (click)="deleteUser(user.userid)" class="delete-btn">Delete</button>
             <button (click)="openChangePasswordModal(user)" class="change-password-btn">Change Password</button>
-
           </td>
         </tr>
       </tbody>
     </table>
-    
+  </div>
+
+  <!-- Mobile Card Layout -->
+  <div class="cards-container" *ngIf="!loading && users.length > 0">
+    <div class="card" *ngFor="let user of users">
+      <p><b>ID:</b> {{ user.userid }}</p>
+      <p><b>Name:</b> {{ user.first_name }} {{ user.last_name }}</p>
+      <p><b>Username:</b> {{ user.username }}</p>
+      <p><b>Email:</b> {{ user.email }}</p>
+      <p><b>Contact:</b> {{ user.contact_number }}</p>
+      <p><b>Role:</b> {{ user.role }}</p>
+      <p><b>Location:</b> {{ user.location }}</p>
+      <p><b>Profile Picture:</b></p>
+      <img [src]="user.profilepic" alt="Profile Picture" class="profile-pic-mobile">
+
+      <div class="card-actions">
+        <button (click)="openEditModal(user)" class="edit-btn">Edit</button>
+        <button (click)="deleteUser(user.userid)" class="delete-btn">Delete</button>
+        <button (click)="openChangePasswordModal(user)" class="change-password-btn">Change Password</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Change Password Modal -->
-<div class="modal" *ngIf="isChangePasswordModalOpen">
+  <div class="modal" *ngIf="isChangePasswordModalOpen">
     <div class="modal-content">
       <h2>Change Password</h2>
       <form (ngSubmit)="changePassword()">
         <label for="new_password">New Password</label>
         <input id="new_password" [(ngModel)]="passwordData.new_password" name="new_password" type="password" class="form-input" required>
-  
+
         <label for="confirm_password">Confirm Password</label>
         <input id="confirm_password" [(ngModel)]="passwordData.confirm_password" name="confirm_password" type="password" class="form-input" required>
-  
+
         <div class="modal-actions">
           <button type="submit" class="save-btn">Save</button>
           <button type="button" class="cancel-btn" (click)="closeChangePasswordModal()">Cancel</button>
@@ -74,38 +96,38 @@
     </div>
   </div>
 
-    <!-- Edit User Modal -->
-    <div class="modal" *ngIf="isEditModalOpen">
-      <div class="modal-content">
-        <h2>Edit User</h2>
-        <form (ngSubmit)="saveUser()">
-          <label for="first_name">First Name</label>
-          <input id="first_name" [(ngModel)]="selectedUser.first_name" name="first_name" class="form-input" required>
-  
-          <label for="last_name">Last Name</label>
-          <input id="last_name" [(ngModel)]="selectedUser.last_name" name="last_name" class="form-input" required>
-  
-          <label for="email">Email</label>
-          <input id="email" [(ngModel)]="selectedUser.email" name="email" class="form-input" required>
-  
-          <label for="contact_number">Contact Number</label>
-          <input id="contact_number" [(ngModel)]="selectedUser.contact_number" name="contact_number" class="form-input">
-  
-          <label for="role">Role</label>
-          <select id="role" [(ngModel)]="selectedUser.role" name="role" class="form-input">
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
-            <option value="runner">Runner</option>
-          </select>
-  
-          <label for="location">Location</label>
-          <input id="location" [(ngModel)]="selectedUser.location" name="location" class="form-input">
-  
-          <div class="modal-actions">
-            <button type="submit" class="save-btn">Save</button>
-            <button type="button" class="cancel-btn" (click)="closeEditModal()">Cancel</button>
-          </div>
-        </form>
-      </div>
+  <!-- Edit User Modal -->
+  <div class="modal" *ngIf="isEditModalOpen">
+    <div class="modal-content">
+      <h2>Edit User</h2>
+      <form (ngSubmit)="saveUser()">
+        <label for="first_name">First Name</label>
+        <input id="first_name" [(ngModel)]="selectedUser.first_name" name="first_name" class="form-input" required>
+
+        <label for="last_name">Last Name</label>
+        <input id="last_name" [(ngModel)]="selectedUser.last_name" name="last_name" class="form-input" required>
+
+        <label for="email">Email</label>
+        <input id="email" [(ngModel)]="selectedUser.email" name="email" class="form-input" required>
+
+        <label for="contact_number">Contact Number</label>
+        <input id="contact_number" [(ngModel)]="selectedUser.contact_number" name="contact_number" class="form-input">
+
+        <label for="role">Role</label>
+        <select id="role" [(ngModel)]="selectedUser.role" name="role" class="form-input">
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+          <option value="runner">Runner</option>
+        </select>
+
+        <label for="location">Location</label>
+        <input id="location" [(ngModel)]="selectedUser.location" name="location" class="form-input">
+
+        <div class="modal-actions">
+          <button type="submit" class="save-btn">Save</button>
+          <button type="button" class="cancel-btn" (click)="closeEditModal()">Cancel</button>
+        </div>
+      </form>
     </div>
   </div>
+</div>

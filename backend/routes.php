@@ -140,8 +140,15 @@ switch ($requestUri) {
         uploadRemittanceProof();
         break;
 
+    case 'markAsRemitted':
+        require_once 'routes/post.php';
+        markAsRemitted();
+        break;
 
-
+    case 'getWeeklyRemittanceSummary':
+        require_once 'routes/get.php';
+        getWeeklyRemittanceSummary();
+        break;
 
 
 
