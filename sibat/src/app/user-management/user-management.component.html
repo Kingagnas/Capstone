@@ -28,6 +28,7 @@
           <th>Email</th>
           <th>Contact Number</th>
           <th>Role</th>
+          <th>Average Rating</th>
           <th>Location</th>
           <th>Profile Picture</th>
           <th>Actions</th>
@@ -42,6 +43,9 @@
           <td>{{ user.email }}</td>
           <td>{{ user.contact_number }}</td>
           <td>{{ user.role }}</td>
+          <td>
+  {{ user.role === 'runner' ? (user.average_rating | number:'1.1-2') : '—' }}
+</td>
           <td>{{ user.location }}</td>
           <td>
             <img [src]="user.profilepic" alt="Profile Picture" width="50" height="50">
@@ -65,6 +69,8 @@
       <p><b>Email:</b> {{ user.email }}</p>
       <p><b>Contact:</b> {{ user.contact_number }}</p>
       <p><b>Role:</b> {{ user.role }}</p>
+      <p><b>Average Rating:</b> {{ user.role === 'runner' ? (user.average_rating | number:'1.1-2') : '—' }}</p>
+
       <p><b>Location:</b> {{ user.location }}</p>
       <p><b>Profile Picture:</b></p>
       <img [src]="user.profilepic" alt="Profile Picture" class="profile-pic-mobile">

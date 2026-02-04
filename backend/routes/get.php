@@ -100,32 +100,29 @@ function getUserData() {
 function getAllUsers() {
     global $conn;
 
-    // Get the Authorization header from the request
+    // Get the Authorization header
     $headers = getallheaders();
     if (!isset($headers['Authorization'])) {
         echo json_encode(["error" => "Missing token"]);
         exit;
     }
 
-    // Extract token from "Bearer <token>"
     $token = str_replace("Bearer ", "", $headers['Authorization']);
-    $secretKey = 'your-secret-key'; // Ensure this is the same key used for JWT generation
+    $secretKey = 'your-secret-key'; // Ensure this matches JWT generation
 
-    // Verify the token
     $decodedPayload = verifyJWT($token, $secretKey);
-
     if (!$decodedPayload || !isset($decodedPayload['uid'])) {
         echo json_encode(["error" => "Invalid or expired token"]);
         exit;
     }
 
-    // Check if the user is an admin
     $userid = intval($decodedPayload['uid']);
+
+    // Check if the user is an admin
     $stmt = $conn->prepare("SELECT role FROM users WHERE userid = ?");
     $stmt->bind_param("i", $userid);
     $stmt->execute();
     $result = $stmt->get_result();
-
     if ($result->num_rows === 0) {
         echo json_encode(["error" => "User not found"]);
         exit;
@@ -137,17 +134,38 @@ function getAllUsers() {
         exit;
     }
 
-    // Fetch all users
-    $stmt = $conn->prepare("SELECT userid, first_name, last_name, username, email, contact_number, role, location, profilepic FROM users");
+    // Fetch all users with average rating for runners
+    $sql = "
+        SELECT 
+            u.userid,
+            u.first_name,
+            u.last_name,
+            u.username,
+            u.email,
+            u.contact_number,
+            u.role,
+            u.location,
+            u.profilepic,
+            IF(u.role = 'runner', IFNULL((
+                SELECT AVG(rating) 
+                FROM chat_history ch
+                WHERE ch.runner_id = u.userid
+            ), 0), NULL) AS average_rating
+        FROM users u
+        ORDER BY u.userid ASC
+    ";
+    $stmt = $conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->get_result();
 
     $users = [];
     while ($row = $result->fetch_assoc()) {
-        // Append full path to profile picture
         $row['profilepic'] = $row['profilepic'] 
             ? "https://sibatapi2.loophole.site/CAPSTONE/backend/uploads/" . $row['profilepic']
             : "https://sibatapi2.loophole.site/CAPSTONE/backend/uploads/default_profile.png";
+
+        // Round average_rating to 2 decimals for frontend display
+        $row['average_rating'] = isset($row['average_rating']) ? round(floatval($row['average_rating']), 2) : null;
 
         $users[] = $row;
     }
@@ -156,6 +174,7 @@ function getAllUsers() {
 
     $stmt->close();
 }
+
 
 
 function getRunnerApplications() {
